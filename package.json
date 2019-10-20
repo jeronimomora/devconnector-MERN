@@ -6,8 +6,10 @@
   "author": "Jeronimo",
   "license": "MIT",
   "dependencies": {
+    "@babel/runtime": "^7.6.3",
     "bcryptjs": "^2.4.3",
     "config": "^3.2.3",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-validator": "^6.2.0",
     "gravatar": "^1.8.0",
@@ -16,10 +18,15 @@
     "request": "^2.88.0"
   },
   "scripts": {
-    "start": "node server",
-    "server": "nodemon server"
+    "start": "nodemon --exec babel-node server/server.js",
+    "build": "babel server/ -d server/dist",
+    "serve": "yarn run build && nodemon server/dist/server.js"
   },
   "devDependencies": {
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.6.4",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.6.3",
     "concurrently": "^5.0.0",
     "nodemon": "^1.19.4"
   }

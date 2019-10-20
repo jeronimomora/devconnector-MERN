@@ -1,4 +1,5 @@
-const express = require('express')
+import express from 'express'
+
 const router = express.Router()
 
 // @route   GET api/profile
@@ -8,4 +9,4 @@ router.get('/',(req, res) => {
     res.send('Profile route')
 })
 
-module.exports = router
+export default router
