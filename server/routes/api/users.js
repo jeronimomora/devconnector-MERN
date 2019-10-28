@@ -3,7 +3,7 @@ import gravatar from 'gravatar'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { check, validationResult } from 'express-validator'
-import User from '../../models/User'
+import User from '~/server/models/User'
 
 const router = express.Router()
 

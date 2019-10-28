@@ -2,8 +2,8 @@ import express from 'express'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { check, validationResult } from 'express-validator'
-import User from '../../models/User'
-import auth from '../../middleware/auth'
+import User from '~/server/models/User'
+import auth from '~/server/middleware/auth'
 
 const router = express.Router()
 
@@ -72,7 +72,7 @@ router.get('/', auth, async (req, res) => {
 
     res.json(user)
   } catch (error) {
-    console.log(error.message)
+    console.erro(error.message)
     res.status(500).send('Server error')
   }
 })
