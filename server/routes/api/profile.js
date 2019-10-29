@@ -1,7 +1,6 @@
 import express from 'express'
 import auth from '~/server/middleware/auth'
 import Profile from '~/server/models/Profile'
-import User from '~/server/models/User'
 import { check, validationResult } from 'express-validator'
 
 const router = express.Router()
@@ -111,6 +110,40 @@ router.post('/', [
     res.status(500).send('Server error')
   }
   res.send('yeet')
+})
+
+// @route   GET api/profile
+// @desc    Get all profiles
+// @access  Public
+
+router.get('/', async (req, res) => {
+  try {
+    const profiles = await Profile.find({}).populate('user', ['name', 'avatar'])
+    res.json(profiles)
+  } catch (error) {
+    console.error(error.message)
+    res.status(500).send('Server error')
+  }
+})
+
+// @route   GET api/profile/user/:user_id
+// @desc    Get profile by user id
+// @access  Public
+
+router.get('/user/:user_id', async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ user: req.params.user_id }).populate('user', ['name', 'avatar'])
+    if (!profile) {
+      return res.status(400).json({ msg: 'Profile not found' })
+    }
+    res.json(profile)
+  } catch (error) {
+    console.error(error.message)
+    if (error.kind === 'ObjectId') {
+      return res.status(400).json({ msg: 'Profile not found' })
+    }
+    res.status(500).send('Server error')
+  }
 })
 
 export default router
