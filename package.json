@@ -18,9 +18,11 @@
     "request": "^2.88.0"
   },
   "scripts": {
-    "start": "nodemon --exec babel-node server/server.js",
+    "server": "nodemon --exec babel-node server/server.js",
     "build": "babel server/ -d server/dist",
-    "serve": "yarn run build && nodemon server/dist/server.js"
+    "serve": "yarn run build && nodemon server/dist/server.js",
+    "client": "PORT=3003 yarn --cwd client start",
+    "dev": "concurrently \"yarn run server\" \"yarn run client\""
   },
   "devDependencies": {
     "@babel/cli": "^7.6.4",
