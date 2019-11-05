@@ -3,6 +3,7 @@ import request from 'request'
 import auth from '~/server/middleware/auth'
 import Profile from '~/server/models/Profile'
 import User from '~/server/models/User'
+import Post from '~/server/models/Post'
 import { check, validationResult } from 'express-validator'
 
 const router = express.Router()
@@ -158,6 +159,9 @@ router.delete('/', auth, async (req, res) => {
 
     // Remove user
     await User.findOneAndRemove({ _id: req.user.id })
+
+    // Remove posts
+    await Post.deleteMany({ user: req.user.id })
 
     res.json({ msg: 'User deleted' })
   } catch (error) {
